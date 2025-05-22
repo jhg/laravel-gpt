@@ -36,7 +36,7 @@ abstract class GPTChatShim extends GPTChat
         return $this;
     }
 
-    public static function migrateMessage(ChatMessage $message): ?CoreMessage
+    public static function migrateMessage(ChatMessage $message): null|CoreMessage|ChatMessage
     {
         $role = $message->role;
 
@@ -52,7 +52,7 @@ abstract class GPTChatShim extends GPTChat
         );
     }
 
-    public function latestMessage(): CoreMessage
+    public function latestMessage(): CoreMessage|ChatMessage
     {
         $message = Arr::last($this->messages);
 
