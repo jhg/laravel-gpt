@@ -18,6 +18,11 @@ abstract class GPTChatShim
      */
     public array $messages = [];
 
+    public static function make(...$arguments): static
+    {
+        return new static(...$arguments);
+    }
+
     public function addMessage(ChatMessage|CoreMessage|string $message): static
     {
         if (is_string($message)) {
