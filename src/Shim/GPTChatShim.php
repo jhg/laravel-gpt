@@ -18,6 +18,7 @@ abstract class GPTChatShim
      */
     public array $messages = [];
     public int $timeout = 30;
+    public ?string $toolChoice = null;
 
     public static function make(...$arguments): static
     {
@@ -114,6 +115,7 @@ abstract class GPTChatShim
             system: $this->systemMessage(),
             temperature: $this->temperature(),
             maxSteps: 5,
+            toolChoice: $this->toolChoice,
         );
 
         if ($response->messages && count($response->messages) > 0) {
