@@ -11,7 +11,7 @@ use MalteKuhr\LaravelGPT\Enums\ChatRole;
 use MalteKuhr\LaravelGPT\GPTChat;
 use MalteKuhr\LaravelGPT\Models\ChatMessage;
 
-abstract class GPTChatShim extends GPTChat
+abstract class GPTChatShim
 {
     /**
      * @var array<CoreMessage>
@@ -36,7 +36,20 @@ abstract class GPTChatShim extends GPTChat
         return $this;
     }
 
-    public static function migrateMessage(ChatMessage $message): null|CoreMessage|ChatMessage
+    public static function migrateFrom(GPTChat $chat): static
+    {
+        $instance = new static();
+        foreach ($chat->messages as $message) {
+            if ($message instanceof ChatMessage) {
+                $message = static::migrateMessage($message);
+            }
+            $instance->messages[] = $message;
+        }
+
+        return $instance;
+    }
+
+    public static function migrateMessage(ChatMessage $message): ?CoreMessage
     {
         $role = $message->role;
 
