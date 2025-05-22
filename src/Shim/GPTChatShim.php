@@ -22,6 +22,10 @@ abstract class GPTChatShim
     {
         return new static(...$arguments);
     }
+    public function model(): string
+    {
+        return config('laravel-gpt.default_model');
+    }
 
     public function addMessage(ChatMessage|CoreMessage|string $message): static
     {
