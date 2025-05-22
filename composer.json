@@ -21,6 +21,7 @@
         "guzzlehttp/guzzle": "^7.5",
         "illuminate/support": "^9.2|^10|^11",
         "laravel/framework": "^9.0|^10|^11",
+        "lenorix/ai": "^0.1.6",
         "openai-php/client": "^0.13.0"
     },
     "require-dev": {
