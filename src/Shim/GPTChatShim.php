@@ -13,6 +13,9 @@ use MalteKuhr\LaravelGPT\Models\ChatMessage;
 
 abstract class GPTChatShim extends GPTChat
 {
+    /**
+     * @var array<CoreMessage>
+     */
     public array $messages = [];
 
     public function addMessage(ChatMessage|CoreMessage|string $message): static
