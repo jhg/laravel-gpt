@@ -30,7 +30,8 @@ abstract class GPTActionShim extends GPTAction
     {
         $tool = new ToolFromLambda(
             function (...$params) {
-                $this->result = $this->function()(...$params);
+                $this->result = ($this->function())(...$params);
+                return $this->result;
             },
             name: $this->name(),
             description: $this->description(),
@@ -52,7 +53,7 @@ abstract class GPTActionShim extends GPTAction
             prompt: $message,
             system: $this->systemMessage(),
             temperature:  $this->temperature(),
-            maxSteps: 5,
+            maxSteps: 1,
             toolChoice: 'required',
         );
 
