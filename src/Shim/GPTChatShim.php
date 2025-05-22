@@ -116,7 +116,7 @@ abstract class GPTChatShim
 
         if ($response->messages && count($response->messages) > 0) {
             foreach ($response->messages as $message) {
-                $messages[] = $message;
+                $this->addMessage($message);
             }
         }
 
