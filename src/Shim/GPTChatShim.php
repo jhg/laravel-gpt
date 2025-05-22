@@ -120,8 +120,6 @@ abstract class GPTChatShim
             }
         }
 
-        $this->messages = $messages;
-
         return $this;
     }
 }
