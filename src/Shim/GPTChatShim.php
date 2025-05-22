@@ -17,6 +17,7 @@ abstract class GPTChatShim
      * @var array<CoreMessage>
      */
     public array $messages = [];
+    public int $timeout = 30;
 
     public static function make(...$arguments): static
     {
@@ -103,6 +104,7 @@ abstract class GPTChatShim
             model: $this->model(),
             apiKey: config('laravel-gpt.api_key'),
             baseUrl: config('laravel-gpt.base_uri'),
+            timeout: $this->timeout,
         );
 
         $response = AiText::generate(
