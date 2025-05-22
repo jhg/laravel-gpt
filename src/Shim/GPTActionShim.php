@@ -53,7 +53,7 @@ abstract class GPTActionShim extends GPTAction
             prompt: $message,
             system: $this->systemMessage(),
             temperature:  $this->temperature(),
-            maxSteps: 1,
+            maxSteps: 2,
             toolChoice: 'required',
         );
 
