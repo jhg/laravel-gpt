@@ -101,7 +101,7 @@ abstract class GPTChatShim
 
     public function send(): self
     {
-        $uuidForLogging = Str::ulid();
+        $uuidForLogging = Str::ulid()->toString();
         Log::debug('Latest message', [
             'message' => $this->latestMessage(),
             'trace' => $uuidForLogging,
