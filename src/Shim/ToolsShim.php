@@ -32,14 +32,14 @@ class ToolsShim extends CoreTool
         return $this->description;
     }
 
-    public function parameters(): object
+    public function parameters(): array
     {
-        return (object) $this->parameters;
+        return $this->parameters;
     }
 
     public function requiredParameters(): array
     {
-        return $this->requiredParameters ?: array_keys((array) $this->parameters());
+        return $this->requiredParameters ?: array_keys($this->parameters());
     }
 
     public function run(...$parameters): mixed
