@@ -102,8 +102,13 @@ abstract class GPTChatShim
     public function send(): self
     {
         $uuidForLogging = Str::ulid()->toString();
+        $latestMessage = $this->latestMessage();
         Log::debug('Latest message', [
-            'message' => $this->latestMessage(),
+            'message' => [
+                'role' => $latestMessage->role->value,
+                'tool_calls' => $latestMessage->toolCalls,
+                'tool_call_id' => $latestMessage->toolCallId,
+            ],
             'trace' => $uuidForLogging,
         ]);
 
@@ -140,7 +145,11 @@ abstract class GPTChatShim
         if ($response->messages && count($response->messages) > 0) {
             foreach ($response->messages as $message) {
                 Log::debug('New message', [
-                    'message' => $message,
+                    'message' => [
+                        'role' => $message->role->value,
+                        'tool_calls' => $message->toolCalls,
+                        'tool_call_id' => $message->toolCallId,
+                    ],
                     'trace' => $uuidForLogging,
                 ]);
                 $this->addMessage($message);
