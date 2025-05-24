@@ -90,12 +90,22 @@ abstract class GPTChatShim
 
     abstract public function tools(): ?array;
 
+    abstract public function systemMessage(): ?string;
+
+    public function temperature(): ?float
+    {
+        return 1.0;
+    }
+
     public function send(): self
     {
         $messages = [];
         foreach ($this->messages as $message) {
             if ($message instanceof ChatMessage) {
                 $message = static::migrateMessage($message);
+            }
+            if (is_array($message)) {
+                $message = CoreMessage::fromArray($message);
             }
             if ($message instanceof CoreMessage) {
                 $messages[] = $message;
