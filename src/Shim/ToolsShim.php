@@ -2,6 +2,7 @@
 
 namespace MalteKuhr\LaravelGPT\Shim;
 
+use Illuminate\Support\Facades\Log;
 use Lenorix\Ai\Chat\CoreTool;
 use MalteKuhr\LaravelGPT\GPTFunction;
 
@@ -44,6 +45,10 @@ class ToolsShim extends CoreTool
 
     public function run(...$parameters): mixed
     {
+        Log::debug('Tool called by LLM', [
+            'tool' => $this->name(),
+            'parameters' => $parameters,
+        ]);
         return ($this->lambda)(...$parameters);
     }
 }
