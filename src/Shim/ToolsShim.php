@@ -42,7 +42,7 @@ class ToolsShim extends CoreTool
         return $this->requiredParameters ?: array_keys((array) $this->parameters());
     }
 
-    public function execute(...$parameters): mixed
+    public function run(...$parameters): mixed
     {
         return ($this->lambda)(...$parameters);
     }
