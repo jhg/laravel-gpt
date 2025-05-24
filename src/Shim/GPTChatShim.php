@@ -3,6 +3,8 @@
 namespace MalteKuhr\LaravelGPT\Shim;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Lenorix\Ai\AiText;
 use Lenorix\Ai\Chat\CoreMessage;
 use Lenorix\Ai\Chat\CoreMessageRole;
@@ -99,6 +101,12 @@ abstract class GPTChatShim
 
     public function send(): self
     {
+        $uuidForLogging = Str::ulid();
+        Log::debug('Latest message', [
+            'message' => $this->latestMessage(),
+            'trace' => $uuidForLogging,
+        ]);
+
         $messages = [];
         foreach ($this->messages as $message) {
             if ($message instanceof ChatMessage) {
@@ -131,6 +139,10 @@ abstract class GPTChatShim
 
         if ($response->messages && count($response->messages) > 0) {
             foreach ($response->messages as $message) {
+                Log::debug('New message', [
+                    'message' => $message,
+                    'trace' => $uuidForLogging,
+                ]);
                 $this->addMessage($message);
             }
         }
